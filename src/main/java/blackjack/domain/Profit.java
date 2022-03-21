@@ -18,14 +18,14 @@ public class Profit {
     }
 
     public static Profit of(final Dealer dealer, final Players players) {
-        final Map<String, Double> value = players.getValue().stream()
+        final Map<String, Double> profitByName = players.getValue().stream()
                 .collect(Collectors.toMap(
                         Player::getName,
                         player -> player.calculateProfit(dealer.getScore(), dealer.isBlackjack()),
-                        (a, b) -> a,
+                        (oldValue, newValue) -> oldValue,
                         LinkedHashMap::new));
 
-        return new Profit(value);
+        return new Profit(profitByName);
     }
 
     public double findDealerProfit() {

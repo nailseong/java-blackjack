@@ -20,7 +20,7 @@ public class Card {
                 .collect(Collectors.toMap(
                         card -> findKey(card.symbol, card.number),
                         card -> card,
-                        (a, b) -> a));
+                        (oldValue, newValue) -> oldValue));
     }
 
     private final CardSymbol symbol;
