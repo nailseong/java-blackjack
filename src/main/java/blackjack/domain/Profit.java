@@ -16,8 +16,7 @@ public class Profit {
     }
 
     public static Profit of(final Dealer dealer, final Players players) {
-        final Map<String, Double> value = players.getValue()
-                .stream()
+        final Map<String, Double> value = players.getValue().stream()
                 .collect(Collectors.toMap(
                         Player::getName,
                         player -> player.calculateProfit(dealer.getScore(), dealer.isBlackjack()),
@@ -28,8 +27,7 @@ public class Profit {
     }
 
     public double findDealerProfit() {
-        final double totalPlayerProfit = value.values()
-                .stream()
+        final double totalPlayerProfit = value.values().stream()
                 .mapToDouble(Double::doubleValue)
                 .sum();
 

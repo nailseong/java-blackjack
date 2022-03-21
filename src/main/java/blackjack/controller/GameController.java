@@ -30,8 +30,7 @@ public class GameController {
     private Players initPlayers() {
         final PlayerNames playerNames = initPlayerNames();
 
-        final List<Player> list = playerNames.getNames()
-                .stream()
+        final List<Player> list = playerNames.getNames().stream()
                 .map(name -> new Player(name, createBettingAmount(name)))
                 .collect(Collectors.toList());
         return new Players(list);
