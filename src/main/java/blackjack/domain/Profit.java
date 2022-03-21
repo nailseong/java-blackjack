@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 public class Profit {
 
+    private static final int DEALER_PROFIT_RATE = -1;
+
     private final Map<String, Double> value;
 
     private Profit(final Map<String, Double> value) {
@@ -31,7 +33,7 @@ public class Profit {
                 .mapToDouble(Double::doubleValue)
                 .sum();
 
-        return totalPlayerProfit * -1;
+        return totalPlayerProfit * DEALER_PROFIT_RATE;
     }
 
     public double findPlayerProfit(String name) {
