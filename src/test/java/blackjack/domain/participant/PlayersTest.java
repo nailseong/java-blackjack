@@ -1,7 +1,13 @@
 package blackjack.domain.participant;
 
+import static blackjack.domain.card.CardNumber.*;
+import static blackjack.domain.card.CardSymbol.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import blackjack.domain.card.Card;
+import blackjack.domain.card.CardNumber;
+import blackjack.domain.card.CardSymbol;
+import blackjack.domain.card.Deck;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,20 +16,29 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class PlayersTest {
 
-
     @Test
     @DisplayName("카드를 뽑을 수 있는 플레이어를 찾는다.")
     void findHitPlayer() {
         // give
-        final Players players = new Players(List.of(
-                new Player("rick", 1000),
-                new Player("pobi", 1000)));
+        final Player bustPlayer = new Player("rick", 1000);
+        final Player drawablePlayer = new Player("pobi", 1000);
+
+        final List<Card> cards = List.of(
+                Card.of(CLUB, TEN),
+                Card.of(CLUB, JACK),
+                Card.of(CLUB, TWO));
+        final Deck deck = Deck.from(() -> cards);
+        for (int i = 0; i < cards.size(); i++) {
+            bustPlayer.hit(deck);
+        }
+
+        final Players players = new Players(List.of(bustPlayer, drawablePlayer));
 
         // when
         final Player actual = players.findDrawablePlayer().get();
 
         // then
-        assertThat(actual.getName()).isEqualTo("rick");
+        assertThat(actual).isEqualTo(drawablePlayer);
     }
 
     @ParameterizedTest
