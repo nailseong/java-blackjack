@@ -11,10 +11,10 @@ public class Profit {
 
     private static final int DEALER_PROFIT_RATE = -1;
 
-    private final Map<String, Double> value;
+    private final Map<String, Double> profitByName;
 
-    private Profit(final Map<String, Double> value) {
-        this.value = value;
+    private Profit(final Map<String, Double> profitByName) {
+        this.profitByName = profitByName;
     }
 
     public static Profit of(final Dealer dealer, final Players players) {
@@ -29,7 +29,7 @@ public class Profit {
     }
 
     public double findDealerProfit() {
-        final double totalPlayerProfit = value.values().stream()
+        final double totalPlayerProfit = profitByName.values().stream()
                 .mapToDouble(Double::doubleValue)
                 .sum();
 
@@ -37,6 +37,6 @@ public class Profit {
     }
 
     public double findPlayerProfit(String name) {
-        return value.get(name);
+        return profitByName.get(name);
     }
 }
